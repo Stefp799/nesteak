@@ -200,7 +200,11 @@ const ReservationForm = () => {
             <h3>RESERVATION HOURS</h3>
             <div className="hours-list">
               <div className="hour-item">
-                <span>Wednesday - Thursday</span>
+                <span>Wednesday</span>
+                <span>11:30 AM - 9:00 PM</span>
+              </div>
+              <div className="hour-item">
+                <span>Thursday</span>
                 <span>11:30 AM - 9:00 PM</span>
               </div>
               <div className="hour-item">
