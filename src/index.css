@@ -182,9 +182,18 @@ nav .reservations-btn:hover { background-color: white; color: black; }
 /* Hours page styling */
 .hours-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 500px; margin: 0 auto; }
 .hours-item { padding-bottom: 0.5rem; }
-.hours-item-header { display: flex; justify-content: space-between; align-items: baseline; }
-.hours-item-day { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 400; color: #8B6F47; text-transform: uppercase; letter-spacing: 0.05em; }
-.hours-item-time { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 400; color: #8B6F47; }
+.hours-item-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; }
+@media (max-width: 767px) {
+  .hours-item-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+.hours-item-day { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 400; color: #8B6F47; text-transform: uppercase; letter-spacing: 0.03em; }
+@media (min-width: 768px) { .hours-item-day { font-size: 1.25rem; letter-spacing: 0.05em; } }
+.hours-item-time { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 400; color: #8B6F47; }
+@media (min-width: 768px) { .hours-item-time { font-size: 1.25rem; } }
 
 /* Video section styling */
 .video-section { width: 100%; background-color: white; padding: 2rem 0; margin-top: 100px; }
