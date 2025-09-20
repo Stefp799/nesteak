@@ -79,7 +79,7 @@ const MenuSection = () => (
         <div className="menu-main">
           <h2>OUR LEGENDARY TAKE ON<br />STEAKHOUSE STANDARDS</h2>
         </div>
-        <button className="menu-btn" onClick={() => window.location.href = '/menus'}>VIEW THE MENUS</button>
+        <Link to="/menus" className="menu-btn">VIEW THE MENUS</Link>
       </div>
     </div>
   </section>
