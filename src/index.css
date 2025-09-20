@@ -46,7 +46,7 @@ nav .nav-menu.nav-menu-open { transform: translateY(0); opacity: 1; visibility: 
 }
 nav .nav-menu a { color: white; text-decoration: none; transition: color 0.15s; }
 nav .nav-menu a:hover { color: #d4af37; }
-nav .reservations-btn { border: 2px solid white; color: white; padding: 0.75rem 2rem; font-size: 1.125rem; font-weight: 500; letter-spacing: 0.025em; background: transparent; cursor: pointer; transition: all 0.3s; }
+nav .reservations-btn { border: 2px solid white; color: white; padding: 0.75rem 2rem; font-size: 1.125rem; font-weight: 500; letter-spacing: 0.025em; background: transparent; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; }
 @media (max-width: 767px) { nav .reservations-btn { display: none; } }
 nav .reservations-btn:hover { background-color: white; color: black; }
 
