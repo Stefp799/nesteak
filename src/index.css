@@ -100,6 +100,19 @@ nav .reservations-btn:hover { background-color: white; color: black; }
 .menu-item:nth-child(even) .menu-item-name { margin-left: 40px; }
 .menu-item:nth-child(even) .menu-item-description { margin-left: 40px; }
 
+/* Wine section single column layout */
+.wine-items-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; max-width: 700px; margin: 0 auto; }
+.wine-items-grid .menu-item:nth-child(even) .menu-item-name { margin-left: 0; }
+.wine-items-grid .menu-item:nth-child(even) .menu-item-description { margin-left: 0; }
+
+/* Wine item pricing layout */
+.wine-item-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.125rem; }
+.wine-item-name { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 400; color: #8B6F47; text-transform: uppercase; letter-spacing: 0.05em; flex: 1; }
+.wine-pricing { display: flex; gap: 2rem; align-items: baseline; }
+.wine-price-column { text-align: center; min-width: 60px; }
+.wine-price-label { display: none; }
+.wine-price-value { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 400; color: #8B6F47; }
+
 /* Hours page styling */
 .hours-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 500px; margin: 0 auto; }
 .hours-item { padding-bottom: 0.5rem; }

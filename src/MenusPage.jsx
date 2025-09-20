@@ -52,6 +52,12 @@ const MenuBand = ({ activeMenu, setActiveMenu }) => (
       >
         DINNER
       </div>
+      <div
+        className={`menu-band-item ${activeMenu === 'wines' ? 'active' : ''}`}
+        onClick={() => setActiveMenu('wines')}
+      >
+        DRINKS
+      </div>
     </div>
   </section>
 )
@@ -643,6 +649,642 @@ const DinnerSection = () => (
   </section>
 )
 
+const WinesSection = () => (
+  <section id="wines" className="menu-section-content">
+    <div className="menu-category">
+      <h2 className="menu-category-title">WHITE WINES</h2>
+      <div className="wine-items-grid">
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">CAVA, CODORNIU</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$6</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$18</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Sparkling, Spain</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">PROSECCO, MIONETTO</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$8</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$24</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Sparkling, Italy</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">RIESLING, BEX</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$7</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$21</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Germany</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">RIESLING, CHATEAU ST. MICHELLE</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$8</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$24</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Washington</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">MOSCATO, SMOKING LOON</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$8</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$24</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">California</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">PINOT GRIGIO, CASALETTO</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$7</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$21</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">delle Venezie</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">PINOT GRIGIO, ECCO DOMANI</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$8</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$24</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">delle Venezie</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">SAUVIGNON BLANC, FLINT AND STEEL</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$10</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$30</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Napa</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">SAUVIGNON BLANC, VILLA MARIA</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$9</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$28</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Marlborough</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">CHARDONNAY, MATCHBOOK</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$9</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$28</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">California</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">CHARDONNAY, KENDALL-JACKSON</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$10</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$30</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Napa</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">CHARDONNAY, THE ARSONIST</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$12</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$34</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">"Scored 91 Points, Robert Parker, Wine Advocate" Dunnigan Hills</div>
+        </div>
+      </div>
+    </div>
+
+    <div className="menu-category">
+      <h2 className="menu-category-title">RED WINES</h2>
+      <div className="wine-items-grid">
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">RED BLEND, TINTO REY</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$10</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$30</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">"Scored 91 Points, Robert Parker, Wine Advocate" Dunnigan Hills</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">RED BLEND, TORMARESCA NEPRICA</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$9</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$28</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Italy</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">PINOT NOIR, NEILSON</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$10</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$30</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Santa Barbara</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">PINOT NOIR, AQUINAS</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$10</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$30</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Napa</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">CHIANTI CLASSICO, VICCHIOMAGGI0</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$8</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$24</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Tuscany</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">ZINFANDEL, FOUR VINES 'TRUANT'</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$10</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$30</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">California</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">MALBEC, ANTIGAL UNO</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$10</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$30</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Mendoza</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">MERLOT, 14 HANDS</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$8</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$21</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Washington</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">MERLOT, NOBLE VINE 181</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$8</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$24</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Lodi</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">CABERNET SAUVIGNON, MATCHBOOK</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$9</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$28</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">California</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">CABERNET SAUVIGNON, AVALON</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$12</div>
+              </div>
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$34</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Napa</div>
+        </div>
+      </div>
+    </div>
+
+    <div className="menu-category">
+      <h2 className="menu-category-title">SPECIAL SELECT</h2>
+      <div className="wine-items-grid">
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">CHARDONNAY, STAG'S LEAP "KARIA"</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$60</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Napa</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">CABERNET SAUVIGNON, STAG'S LEAP 'ARTEMIS'</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$80</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Napa</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">CABERNET SAUVIGNON, ARCUDI BLACK SEARS VINEYARD</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">BOTTLE</div>
+                <div className="wine-price-value">$150</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Napa. Originally from Mendon, MA, Anthony Arcudi's wine bridges the so-called gap between the old and new worlds, striking the balance of finesse and structure. It shows a very complex nose of blackberry pie, cassis and dried spices. Vibrant, pure and full bodied with dark fruits throughout the broad palate, supported by a long finish of substantial fine tannins for which Howell Mountain Cabernet is known.</div>
+        </div>
+      </div>
+    </div>
+
+    <div className="menu-category">
+      <h2 className="menu-category-title">PORTS</h2>
+      <div className="wine-items-grid">
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">GRAHAM'S 6 GRAPES</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$6</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">GRAHAM'S 10 YEAR TAWNY</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$9</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">GRAHAMS 20 YEAR TAWNY</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-label">GLASS</div>
+                <div className="wine-price-value">$12</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div className="menu-category">
+      <h2 className="menu-category-title">SPECIALTY COCKTAILS</h2>
+      <div className="wine-items-grid">
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">JACK FROST MARTINI</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-value">$12</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Tito's Handmade Vodka, Blue Curacao, Triple Sec, Splash of Sour Mix</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">CANDY CANE MARTINI</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-value">$12</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Stoli Vanilla Vodka, Chocolate Liqueur, Peppermint Schnapps</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">ESPRESSO MARTINI</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-value">$13</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Vanilla Vodka, Double Espresso Vodka, ChocoLat Chocolate Liqueur, Espresso Shot</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">SUNSET BAY MARTINI</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-value">$12</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Malibu, Parrot Bay Passion Fruit, Orange Juice, Pineapple Juice, Splash of Grenadine</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">PINK CADILLAC</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-value">$12</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Absolut Citron, Peachtree Schnapps, Cranberry Juice, Pineapple Juice, Splash of Sweet & Sour Mix</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">ALMOND JOY</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-value">$12</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Ciroc Coconut Vodka, ChocoLat Chocolate Liqueur, Disaronno Amaretto</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">LEMON DROPKICK</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-value">$11</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Absolut Citron, Limoncello, Splash of Sweet & Sour Mix, Sugar Rim</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">BLOOD ORANGE MARTINI</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-value">$12</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Stoli Orange Vodka, Monin Blood Orange Syrup, Triple Sec, Orange Juice</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">GRAPEFRUIT SPRITZ</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-value">$11</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Tito's Handmade Vodka, Elderflower Liqueur, Grapefruit Juice, Splash of Soda Water</div>
+        </div>
+      </div>
+    </div>
+
+    <div className="menu-category">
+      <h2 className="menu-category-title">BOTTLED BEER</h2>
+      <div className="wine-items-grid">
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">BUD</span>
+          </div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">BUD LIGHT</span>
+          </div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">COORS LIGHT</span>
+          </div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">MILLER LITE</span>
+          </div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">CORONA</span>
+          </div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">SAM ADAMS BOSTON LAGER</span>
+          </div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">MIKE'S HARD LEMONADE</span>
+          </div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">O'DOULS NA</span>
+          </div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">ST. PAULIE GIRL NA</span>
+          </div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">HEINEKEN</span>
+          </div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">STELLA ARTOIS</span>
+          </div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">ANGRY ORCHARD</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+)
+
 function MenusPage() {
   const [activeMenu, setActiveMenu] = useState('lunch')
 
@@ -654,6 +1296,7 @@ function MenusPage() {
       <div>
         {activeMenu === 'lunch' && <LunchSection />}
         {activeMenu === 'dinner' && <DinnerSection />}
+        {activeMenu === 'wines' && <WinesSection />}
       </div>
       <footer className="footer">
         <div className="footer-content">
