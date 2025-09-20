@@ -6,7 +6,7 @@ const Navigation = () => (
     <div className="nav-container">
       <div className="logo">
         <Link to="/">
-          <h1>NEW ENGLAND<span>STEAK AND SEAFOOD</span></h1>
+          <img src="/images/nelogo100.png" alt="New England Steak and Seafood" />
         </Link>
       </div>
       <div className="nav-right">
