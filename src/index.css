@@ -107,6 +107,18 @@ nav .reservations-btn:hover { background-color: white; color: black; }
 .hours-item-day { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 400; color: #8B6F47; text-transform: uppercase; letter-spacing: 0.05em; }
 .hours-item-time { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 400; color: #8B6F47; }
 
+/* Video section styling */
+.video-section { width: 100%; background-color: white; padding: 2rem 0; margin-top: 100px; }
+.video-container { max-width: 100%; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: 1fr; gap: 3rem; }
+.video-item { display: flex; justify-content: center; align-items: center; width: 100%; }
+.video-item iframe { width: 100%; max-width: 1200px; height: 675px; }
+@media (max-width: 768px) {
+  .video-item iframe { height: 400px; }
+}
+@media (max-width: 480px) {
+  .video-item iframe { height: 300px; }
+}
+
 /* Gallery page styling */
 .gallery-section { padding: 0; background-color: white; position: relative; }
 .gallery-section::before { content: ''; position: fixed; top: 0; left: 0; right: 0; height: 100px; background-color: #2A4237; z-index: 1; }

@@ -22,6 +22,35 @@ const Navigation = () => (
   </nav>
 )
 
+const VideoSection = () => (
+  <section className="video-section">
+    <div className="video-container">
+      <div className="video-item">
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/nsrKIkprI9s"
+          title="New England Steak and Seafood Video 1"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      </div>
+      <div className="video-item">
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/v4TA3bePMlc"
+          title="New England Steak and Seafood Video 2"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      </div>
+    </div>
+  </section>
+)
+
 const GallerySection = () => {
   const [selectedImage, setSelectedImage] = useState(0) // Start with first image showing
 
@@ -86,6 +115,7 @@ function GalleryPage() {
   return (
     <div>
       <Navigation />
+      <VideoSection />
       <GallerySection />
       <footer className="footer">
         <div className="footer-content">
