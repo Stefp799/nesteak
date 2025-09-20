@@ -141,22 +141,30 @@ nav .reservations-btn:hover { background-color: white; color: black; }
 
 /* Menu sections styling */
 .menu-section-content { background-color: white; padding: 3rem 0; }
-.menu-category { max-width: 71.25rem; margin: -50px auto 0 auto; padding: 2rem; }
+.menu-category { max-width: 71.25rem; margin: -50px auto 0 auto; padding: 1rem; }
+@media (min-width: 768px) { .menu-category { padding: 2rem; } }
 .menu-category + .menu-category { margin-top: -20px; }
-.menu-category-title { font-family: 'Montserrat', sans-serif; font-size: 2rem; color: #2A4237; text-align: center; margin-bottom: 1.75rem; font-weight: 600; letter-spacing: 0.2em; }
-.menu-items-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 4rem; }
+.menu-category-title { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; color: #2A4237; text-align: center; margin-bottom: 1.5rem; font-weight: 600; letter-spacing: 0.1em; }
+@media (min-width: 768px) { .menu-category-title { font-size: 2rem; letter-spacing: 0.2em; } }
+.menu-items-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+@media (min-width: 768px) { .menu-items-grid { grid-template-columns: 1fr 1fr; gap: 2rem 4rem; } }
 .menu-item { padding-bottom: 0rem; }
 .menu-item-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
-.menu-item-name { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 400; color: #8B6F47; text-transform: uppercase; letter-spacing: 0.05em; }
-.menu-item-price { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 400; color: #8B6F47; }
-.menu-item-description { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #666; line-height: 1.4; }
+.menu-item-name { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 400; color: #8B6F47; text-transform: uppercase; letter-spacing: 0.03em; }
+@media (min-width: 768px) { .menu-item-name { font-size: 1.25rem; letter-spacing: 0.05em; } }
+.menu-item-price { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 400; color: #8B6F47; }
+@media (min-width: 768px) { .menu-item-price { font-size: 1.25rem; } }
+.menu-item-description { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #666; line-height: 1.4; }
+@media (min-width: 768px) { .menu-item-description { font-size: 0.8rem; } }
 
 /* Left column adjustments */
-.menu-item:nth-child(odd) .menu-item-header { padding-right: 40px; }
+@media (min-width: 768px) { .menu-item:nth-child(odd) .menu-item-header { padding-right: 40px; } }
 
 /* Right column adjustments */
-.menu-item:nth-child(even) .menu-item-name { margin-left: 40px; }
-.menu-item:nth-child(even) .menu-item-description { margin-left: 40px; }
+@media (min-width: 768px) {
+  .menu-item:nth-child(even) .menu-item-name { margin-left: 40px; }
+  .menu-item:nth-child(even) .menu-item-description { margin-left: 40px; }
+}
 
 /* Wine section single column layout */
 .wine-items-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; max-width: 700px; margin: 0 auto; }
