@@ -18,7 +18,6 @@ const Navigation = () => {
             <Link to="/menus" onClick={() => setIsMenuOpen(false)}>MENUS</Link>
             <Link to="/gallery" onClick={() => setIsMenuOpen(false)}>GALLERY</Link>
             <Link to="/about" onClick={() => setIsMenuOpen(false)}>ABOUT</Link>
-            <Link to="/reservations" onClick={() => setIsMenuOpen(false)}>RESERVATIONS</Link>
           </div>
           <Link to="/reservations" className="reservations-btn">RESERVATIONS</Link>
           <button
