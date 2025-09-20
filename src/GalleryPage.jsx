@@ -2,25 +2,38 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
-const Navigation = () => (
-  <nav>
-    <div className="nav-container">
-      <div className="logo">
-        <Link to="/">
-          <img src="/images/nelogo100.png" alt="New England Steak and Seafood" />
-        </Link>
-      </div>
-      <div className="nav-right">
-        <div className="nav-menu">
-          <Link to="/menus">MENUS</Link>
-          <Link to="/gallery">GALLERY</Link>
-          <Link to="/about">ABOUT</Link>
+const Navigation = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  return (
+    <nav>
+      <div className="nav-container">
+        <div className="logo">
+          <Link to="/">
+            <img src="/images/nelogo100.png" alt="New England Steak and Seafood" />
+          </Link>
         </div>
-        <button className="reservations-btn">RESERVATIONS</button>
+        <div className="nav-right">
+          <div className={`nav-menu ${isMenuOpen ? 'nav-menu-open' : ''}`}>
+            <Link to="/menus" onClick={() => setIsMenuOpen(false)}>MENUS</Link>
+            <Link to="/gallery" onClick={() => setIsMenuOpen(false)}>GALLERY</Link>
+            <Link to="/about" onClick={() => setIsMenuOpen(false)}>ABOUT</Link>
+          </div>
+          <button className="reservations-btn">RESERVATIONS</button>
+          <button
+            className="hamburger-btn"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
       </div>
-    </div>
-  </nav>
-)
+    </nav>
+  )
+}
 
 const VideoSection = () => (
   <section className="video-section">
