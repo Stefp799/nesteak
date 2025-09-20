@@ -45,6 +45,7 @@ const HeroSection = () => (
     <div className="hero-content">
       <div className="hero-text">
         <h1>METRO WEST PREMIER</h1>
+        <div style={{ marginTop: '1rem' }}></div>
         <h2>STEAKHOUSE</h2>
       </div>
     </div>
