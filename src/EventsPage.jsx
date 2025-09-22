@@ -37,7 +37,7 @@ const Navigation = () => {
 const HeroSection = () => (
   <section className="hero-section">
     <div className="hero-bg" style={{
-      backgroundImage: `url('/images/primeribparty.png')`
+      backgroundImage: `url('/images/primeparty.webp')`
     }}>
       <div className="hero-overlay"></div>
     </div>
