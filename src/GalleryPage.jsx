@@ -39,8 +39,8 @@ const VideoSection = () => (
     <div className="video-container">
       <div className="video-item">
         <iframe
-          width="560"
-          height="315"
+          width="480"
+          height="270"
           src="https://www.youtube.com/embed/nsrKIkprI9s"
           title="New England Steak and Seafood Video 1"
           frameBorder="0"
@@ -50,8 +50,8 @@ const VideoSection = () => (
       </div>
       <div className="video-item">
         <iframe
-          width="560"
-          height="315"
+          width="480"
+          height="270"
           src="https://www.youtube.com/embed/v4TA3bePMlc"
           title="New England Steak and Seafood Video 2"
           frameBorder="0"
