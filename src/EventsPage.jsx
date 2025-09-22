@@ -35,7 +35,7 @@ const Navigation = () => {
 }
 
 const HeroSection = () => (
-  <section className="hero-section">
+  <section className="hero-section-small">
     <div className="hero-bg" style={{
       backgroundImage: `url('/images/primeribparty.png')`
     }}>
