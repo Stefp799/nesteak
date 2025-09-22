@@ -19,7 +19,6 @@ const Navigation = () => {
             <Link to="/gallery" onClick={() => setIsMenuOpen(false)}>GALLERY</Link>
             <Link to="/about" onClick={() => setIsMenuOpen(false)}>ABOUT</Link>
           </div>
-          <Link to="/reservations" className="reservations-btn">RESERVATIONS</Link>
           <button
             className="hamburger-btn"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
