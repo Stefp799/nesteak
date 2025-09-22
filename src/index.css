@@ -207,12 +207,12 @@ nav .reservations-btn:hover { background-color: white; color: black; }
 .video-section { width: 100%; background-color: white; padding: 2rem 0; margin-top: 100px; }
 .video-container { max-width: 100%; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: 1fr; gap: 3rem; }
 .video-item { display: flex; justify-content: center; align-items: center; width: 100%; }
-.video-item iframe { width: 100%; max-width: 1200px; height: 675px; }
+.video-item iframe { width: 480px; height: 270px; max-width: 100%; }
 @media (max-width: 768px) {
-  .video-item iframe { height: 400px; }
+  .video-item iframe { width: 400px; height: 225px; }
 }
 @media (max-width: 480px) {
-  .video-item iframe { height: 300px; }
+  .video-item iframe { width: 320px; height: 180px; }
 }
 
 /* Gallery page styling */
