@@ -7,6 +7,7 @@ import MenusPage from './MenusPage.jsx'
 import AboutPage from './AboutPage.jsx'
 import GalleryPage from './GalleryPage.jsx'
 import ReservationsPage from './ReservationsPage.jsx'
+import EventsPage from './EventsPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/reservations" element={<ReservationsPage />} />
+        <Route path="/events" element={<EventsPage />} />
       </Routes>
     </Router>
   </StrictMode>,

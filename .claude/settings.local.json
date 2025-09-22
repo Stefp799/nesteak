@@ -4,7 +4,10 @@
       "Bash(npm run dev:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Read(//c/Users/piard/Documents/github-lovable/office-replica-vibes/plumbing/**)",
+      "Bash(node:*)",
+      "Read(//c/Users/piard/Documents/github-lovable/office-replica-vibes/agent-outputs/screenshots/**)"
     ],
     "deny": [],
     "ask": []
