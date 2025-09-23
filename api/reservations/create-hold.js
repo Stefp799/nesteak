@@ -8,10 +8,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Initialize Stripe with secret key
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: '2023-10-16'
-    })
+    // Production Demo Mode - simulate Stripe integration
+    console.log('Processing reservation hold request')
     const {
       partySize,
       date,
@@ -39,28 +37,15 @@ export default async function handler(req, res) {
     const holdAmountPerGuest = parseInt(process.env.VITE_HOLD_AMOUNT_PER_GUEST) || 25
     const totalHoldAmount = holdAmountPerGuest * parseInt(partySize)
 
-    // Create a test payment method for demo purposes
-    const paymentMethod = await stripe.paymentMethods.create({
-      type: 'card',
-      card: {
-        number: '4242424242424242',
-        exp_month: 12,
-        exp_year: 2025,
-        cvc: '123',
-      },
-      billing_details: {
-        name: name
-      }
-    })
+    // Production Demo Mode - simulate Stripe response
+    await new Promise(resolve => setTimeout(resolve, 1000)) // Simulate API delay
 
-    // Create Payment Intent for authorization hold
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: totalHoldAmount * 100, // Stripe uses cents
+    const demoPaymentIntent = {
+      id: `pi_demo_${Date.now()}`,
+      client_secret: `pi_demo_${Date.now()}_secret_demo`,
+      status: 'requires_capture',
+      amount: totalHoldAmount * 100,
       currency: 'usd',
-      payment_method: paymentMethod.id,
-      capture_method: 'manual', // This creates an authorization hold
-      confirm: true, // Confirm the payment immediately
-      description: `Table reservation hold - ${name} - Party of ${partySize}`,
       metadata: {
         type: 'reservation_hold',
         customer_name: name,
@@ -70,22 +55,23 @@ export default async function handler(req, res) {
         reservation_date: date,
         reservation_time: time,
         special_requests: specialRequests || '',
-        restaurant: process.env.VITE_RESTAURANT_NAME || 'New England Steak and Seafood',
+        restaurant: 'New England Steak and Seafood',
         created_at: new Date().toISOString()
       }
-    })
+    }
 
     // Generate unique reservation ID
     const reservationId = `RES-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`
 
-    // Return success response with client secret for frontend
+    // Return success response with demo data
     res.status(200).json({
       success: true,
       reservation_id: reservationId,
-      client_secret: paymentIntent.client_secret,
-      payment_intent_id: paymentIntent.id,
+      client_secret: demoPaymentIntent.client_secret,
+      payment_intent_id: demoPaymentIntent.id,
       hold_amount: totalHoldAmount,
-      message: 'Reservation hold created successfully'
+      message: 'Production Demo: Reservation hold created successfully',
+      demo_mode: true
     })
 
   } catch (error) {
