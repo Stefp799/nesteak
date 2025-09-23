@@ -8,6 +8,8 @@ import AboutPage from './AboutPage.jsx'
 import GalleryPage from './GalleryPage.jsx'
 import ReservationsPage from './ReservationsPage.jsx'
 import EventsPage from './EventsPage.jsx'
+import StaffPage from './StaffPage.jsx'
+import TermsPage from './TermsPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -19,6 +21,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/about" element={<AboutPage />} />
         <Route path="/reservations" element={<ReservationsPage />} />
         <Route path="/events" element={<EventsPage />} />
+        <Route path="/staff" element={<StaffPage />} />
+        <Route path="/terms" element={<TermsPage />} />
       </Routes>
     </Router>
   </StrictMode>,

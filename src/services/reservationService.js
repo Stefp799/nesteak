@@ -8,27 +8,12 @@ export const reservationService = {
   // Create authorization hold for reservation
   async createReservationHold(reservationData) {
     try {
-      // Demo mode - simulate API response
-      if (import.meta.env.VITE_APP_MODE === 'development') {
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 1500))
+      // Use Express backend (localhost:3001) in development, Vercel in production
+      const apiUrl = import.meta.env.DEV
+        ? 'http://localhost:3001/api/reservations/create-hold'
+        : '/api/reservations/create-hold'
 
-        // Generate demo response
-        const holdAmount = 25 * parseInt(reservationData.partySize)
-        const reservationId = `RES-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`
-
-        return {
-          success: true,
-          reservation_id: reservationId,
-          client_secret: `pi_test_demo_${Date.now()}_secret`,
-          payment_intent_id: `pi_test_demo_${Date.now()}`,
-          hold_amount: holdAmount,
-          message: 'Demo: Reservation hold created successfully'
-        }
-      }
-
-      // Production mode - real API call
-      const response = await fetch('/api/reservations/create-hold', {
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

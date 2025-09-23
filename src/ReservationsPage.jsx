@@ -62,7 +62,8 @@ const ReservationForm = () => {
     name: '',
     phone: '',
     email: '',
-    specialRequests: ''
+    specialRequests: '',
+    smsConsent: false
   })
 
   const [isProcessing, setIsProcessing] = useState(false)
@@ -329,6 +330,25 @@ const ReservationForm = () => {
                 placeholder="Anniversary dinner, dietary restrictions, preferred seating..."
                 rows="3"
               />
+            </div>
+
+            <div className="form-group sms-consent">
+              <div className="sms-consent-box">
+                <input
+                  type="checkbox"
+                  id="smsConsent"
+                  checked={formData.smsConsent || false}
+                  onChange={(e) => setFormData({...formData, smsConsent: e.target.checked})}
+                  required
+                />
+                <label htmlFor="smsConsent" className="sms-consent-label">
+                  I consent to receive SMS text messages from New England Steak & Seafood for reservation confirmations, reminders, and updates.
+                  Message and data rates may apply. Reply STOP to opt out at any time.
+                  <br />
+                  <small>By providing your phone number, you agree to receive SMS communications from us at (833) 722-3840.
+                  <a href="/terms" target="_blank" style={{color: '#8B4513', textDecoration: 'underline'}}> View full SMS terms & privacy policy.</a></small>
+                </label>
+              </div>
             </div>
 
             <button type="submit" className="reserve-button" disabled={isProcessing}>
