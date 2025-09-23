@@ -1,8 +1,9 @@
 // Simple test endpoint to check if Vercel functions work
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   try {
     // Test basic function
     console.log('Test endpoint called')
+    console.log('All env vars:', Object.keys(process.env).filter(key => key.includes('STRIPE') || key.includes('VITE')))
 
     // Test environment variables
     const hasPublishableKey = !!process.env.VITE_STRIPE_PUBLISHABLE_KEY
@@ -16,6 +17,7 @@ export default async function handler(req, res) {
         has_publishable_key: hasPublishableKey,
         has_secret_key: hasSecretKey,
         app_mode: appMode,
+        all_stripe_env_vars: Object.keys(process.env).filter(key => key.includes('STRIPE') || key.includes('VITE')),
         publishable_key_preview: process.env.VITE_STRIPE_PUBLISHABLE_KEY?.substring(0, 10) + '...',
         secret_key_preview: process.env.STRIPE_SECRET_KEY?.substring(0, 10) + '...'
       }
