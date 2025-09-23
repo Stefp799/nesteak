@@ -312,3 +312,291 @@ nav .reservations-btn:hover { background-color: white; color: black; }
 .footer-right { color: white; }
 @media (min-width: 768px) { .footer-right { text-align: right; } }
 .footer-right p { font-family: 'Inter', sans-serif; font-size: 0.875rem; margin: 0.25rem 0; opacity: 0.9; }
+
+/* Reservation Guarantee System Styles */
+.guarantee-info { margin-bottom: 2rem; }
+
+.guarantee-card {
+  background: linear-gradient(135deg, #f8fdf9 0%, #e8f5e8 100%);
+  border: 2px solid #2A4237;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.guarantee-card h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.25rem;
+  color: #2A4237;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.guarantee-card p {
+  color: #2A4237;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.guarantee-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.guarantee-card li {
+  color: #2A4237;
+  margin-bottom: 0.5rem;
+  padding-left: 0;
+}
+
+.total-hold {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1.125rem;
+  border: 1px solid #d1d5db;
+  margin-top: 1rem;
+}
+
+.confirmation-message {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 2px solid #0369a1;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.confirmation-message h3 {
+  font-family: 'Montserrat', sans-serif;
+  color: #0369a1;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.confirmation-message p {
+  color: #0369a1;
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.confirmation-message button {
+  background-color: #0369a1;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s;
+}
+
+.confirmation-message button:hover {
+  background-color: #0284c7;
+}
+
+.reserve-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.form-note.warning {
+  color: #dc2626;
+  font-weight: 500;
+  background: #fef2f2;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #fecaca;
+}
+
+/* Payment Step Styles */
+.payment-step {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  border: 2px solid #e5e7eb;
+}
+
+.payment-step h3 {
+  font-family: 'Montserrat', sans-serif;
+  color: #2A4237;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.reservation-summary {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.reservation-summary h4 {
+  font-family: 'Montserrat', sans-serif;
+  color: #2A4237;
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+}
+
+.reservation-summary p {
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.payment-form-container {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.payment-form-container h3 {
+  font-family: 'Montserrat', sans-serif;
+  color: #2A4237;
+  margin-bottom: 1rem;
+}
+
+.payment-note {
+  background: #e0f2fe;
+  border: 1px solid #0284c7;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: #0369a1;
+}
+
+.demo-notice {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.demo-notice p {
+  margin-bottom: 0.25rem;
+  color: #92400e;
+  font-weight: 500;
+}
+
+.test-card-info {
+  background: #f0f9ff;
+  border: 1px solid #0284c7;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.test-card-info p {
+  margin-bottom: 0.25rem;
+  color: #0369a1;
+  font-size: 0.875rem;
+}
+
+.test-card-info code {
+  background: #1e40af;
+  color: white;
+  padding: 0.125rem 0.25rem;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+}
+
+.card-element-container {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 1rem;
+  background: white;
+  margin-top: 0.5rem;
+}
+
+.card-element-container:focus-within {
+  border-color: #2A4237;
+  box-shadow: 0 0 0 1px #2A4237;
+}
+
+.payment-submit-btn {
+  background-color: #0369a1;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s;
+}
+
+.payment-submit-btn:hover {
+  background-color: #0284c7;
+}
+
+.payment-submit-btn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.payment-disclaimer {
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.back-button {
+  background: #6b7280;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background: #4b5563;
+}
+
+.reservation-details {
+  background: #f0fdf4;
+  border: 1px solid #16a34a;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.reservation-details p {
+  margin-bottom: 0.5rem;
+  color: #15803d;
+}
+
+.next-steps {
+  margin: 1.5rem 0;
+}
+
+.next-steps h4 {
+  font-family: 'Montserrat', sans-serif;
+  color: #0369a1;
+  margin-bottom: 1rem;
+}
+
+.next-steps ul {
+  list-style: none;
+  padding: 0;
+}
+
+.next-steps li {
+  color: #0369a1;
+  margin-bottom: 0.5rem;
+  padding-left: 0;
+}

@@ -1,6 +1,9 @@
 // Reservations Page - New England Steak and Seafood
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { getStripe, STRIPE_CONFIG, calculateHoldAmount, formatCurrency } from './utils/stripe.js'
+import { reservationService } from './services/reservationService.js'
+import PaymentForm from './components/PaymentForm.jsx'
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -53,7 +56,7 @@ const HeroSection = () => (
 
 const ReservationForm = () => {
   const [formData, setFormData] = useState({
-    partySize: '2',
+    partySize: '5', // Default to minimum party size
     date: '',
     time: '',
     name: '',
@@ -62,14 +65,80 @@ const ReservationForm = () => {
     specialRequests: ''
   })
 
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [reservationStep, setReservationStep] = useState('form') // 'form', 'payment', 'confirmation'
+  const [paymentData, setPaymentData] = useState(null)
+
   const timeSlots = [
     '5:00 PM', '5:30 PM', '6:00 PM', '6:30 PM',
     '7:00 PM', '7:30 PM', '8:00 PM', '8:30 PM', '9:00 PM'
   ]
 
-  const handleSubmit = (e) => {
+  const partySize = parseInt(formData.partySize)
+  const isEligibleForReservation = partySize >= STRIPE_CONFIG.minimumPartySize
+  const holdAmount = calculateHoldAmount(partySize)
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    alert('Demo Mode: Reservation system would process booking here!')
+
+    if (!isEligibleForReservation) {
+      alert(`Reservations are available for parties of ${STRIPE_CONFIG.minimumPartySize} or more. For smaller parties, please call us directly at 508.478.0871`)
+      return
+    }
+
+    // Move to payment step
+    setReservationStep('payment')
+  }
+
+  const handlePaymentSuccess = async (paymentMethod) => {
+    setIsProcessing(true)
+
+    try {
+      // Create authorization hold via API
+      const holdResult = await reservationService.createReservationHold(formData)
+
+      // Confirm payment with Stripe
+      const paymentIntent = await reservationService.confirmPayment(
+        holdResult.client_secret,
+        paymentMethod
+      )
+
+      // Store payment data for confirmation
+      setPaymentData({
+        reservation_id: holdResult.reservation_id,
+        payment_intent_id: paymentIntent.id,
+        hold_amount: holdResult.hold_amount
+      })
+
+      setReservationStep('confirmation')
+    } catch (error) {
+      console.error('Payment error:', error)
+      alert(`Payment failed: ${error.message}`)
+      setReservationStep('form')
+    } finally {
+      setIsProcessing(false)
+    }
+  }
+
+  const handlePaymentError = (error) => {
+    alert(`Payment error: ${error}`)
+    setReservationStep('form')
+  }
+
+  const simulateReservationProcess = async () => {
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
+    // In a real implementation, this would:
+    // 1. Check availability
+    // 2. Create payment intent for authorization hold
+    // 3. Store reservation details
+    // 4. Send confirmation email/SMS
+    console.log('Reservation processed:', {
+      ...formData,
+      holdAmount,
+      timestamp: new Date().toISOString()
+    })
   }
 
   return (
@@ -78,6 +147,84 @@ const ReservationForm = () => {
         <div className="reservation-form-wrapper">
           <h2 className="reservation-title">MAKE A RESERVATION</h2>
           <p className="reservation-subtitle">Book your table for an unforgettable dining experience</p>
+
+          {reservationStep === 'form' && (
+            <div className="guarantee-info">
+              <div className="guarantee-card">
+                <h3>🛡️ Table Guarantee System</h3>
+                <p>For parties of {STRIPE_CONFIG.minimumPartySize} or more, we require a courtesy hold of <strong>{formatCurrency(STRIPE_CONFIG.holdAmountPerGuest)} per guest</strong> to secure your table.</p>
+                <ul>
+                  <li>✅ Hold is <strong>released when you arrive</strong></li>
+                  <li>✅ <strong>Cancel up to 24 hours</strong> before - no charge</li>
+                  <li>✅ Think of it as us <strong>saving your seat</strong></li>
+                </ul>
+                {isEligibleForReservation && (
+                  <p className="total-hold">Total hold for your party: <strong>{formatCurrency(holdAmount)}</strong></p>
+                )}
+              </div>
+            </div>
+          )}
+
+          {reservationStep === 'payment' && (
+            <div className="payment-step">
+              <h3>💳 Payment Authorization</h3>
+              <div className="reservation-summary">
+                <h4>Reservation Summary:</h4>
+                <p><strong>Party Size:</strong> {formData.partySize} guests</p>
+                <p><strong>Date & Time:</strong> {formData.date} at {formData.time}</p>
+                <p><strong>Name:</strong> {formData.name}</p>
+                <p><strong>Phone:</strong> {formData.phone}</p>
+              </div>
+
+              <PaymentForm
+                onPaymentSuccess={handlePaymentSuccess}
+                onPaymentError={handlePaymentError}
+                holdAmount={holdAmount}
+                isProcessing={isProcessing}
+                setIsProcessing={setIsProcessing}
+              />
+
+              <button
+                onClick={() => setReservationStep('form')}
+                className="back-button"
+              >
+                ← Back to Form
+              </button>
+            </div>
+          )}
+
+          {reservationStep === 'confirmation' && paymentData && (
+            <div className="confirmation-message">
+              <h3>🎉 Reservation Confirmed!</h3>
+              <p>Thank you, {formData.name}! Your table for {formData.partySize} guests on {formData.date} at {formData.time} is confirmed.</p>
+
+              <div className="reservation-details">
+                <p><strong>Reservation ID:</strong> {paymentData.reservation_id}</p>
+                <p><strong>Hold Amount:</strong> {formatCurrency(paymentData.hold_amount)} (released upon arrival)</p>
+                <p><strong>Status:</strong> Authorization Hold Active</p>
+              </div>
+
+              <div className="next-steps">
+                <h4>What's Next:</h4>
+                <ul>
+                  <li>✅ Confirmation email sent to {formData.email}</li>
+                  <li>📱 SMS reminder 24 hours before your reservation</li>
+                  <li>🏪 Hold will be released when you arrive</li>
+                  <li>📞 Cancel up to 24 hours before - no charge</li>
+                </ul>
+              </div>
+
+              <button onClick={() => {
+                setReservationStep('form')
+                setFormData({partySize: '5', date: '', time: '', name: '', phone: '', email: '', specialRequests: ''})
+                setPaymentData(null)
+              }}>
+                Make Another Reservation
+              </button>
+            </div>
+          )}
+
+          {reservationStep === 'form' && (
 
           <form onSubmit={handleSubmit} className="reservation-form">
             <div className="form-row">
@@ -184,14 +331,23 @@ const ReservationForm = () => {
               />
             </div>
 
-            <button type="submit" className="reserve-button">
-              RESERVE YOUR TABLE
+            <button type="submit" className="reserve-button" disabled={isProcessing}>
+              {isProcessing ? 'Processing...' :
+               isEligibleForReservation ? `SECURE TABLE (${formatCurrency(holdAmount)} hold)` :
+               'RESERVE YOUR TABLE'}
             </button>
 
+            {!isEligibleForReservation && (
+              <p className="form-note warning">
+                ⚠️ Parties under {STRIPE_CONFIG.minimumPartySize} guests: Please call 508.478.0871 directly
+              </p>
+            )}
+
             <p className="form-note">
-              * Reservations are confirmed within 2 hours during business hours
+              * Table guarantee holds are released when you arrive
             </p>
           </form>
+          )}
         </div>
 
         <div className="reservation-info">
