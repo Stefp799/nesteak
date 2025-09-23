@@ -1,29 +1,16 @@
-// Simple test endpoint to check if Vercel functions work
-module.exports = async function handler(req, res) {
+export default function handler(req, res) {
   try {
-    // Test basic function
-    console.log('Test endpoint called')
-    console.log('All env vars:', Object.keys(process.env).filter(key => key.includes('STRIPE') || key.includes('VITE')))
-
-    // Test environment variables
     const hasPublishableKey = !!process.env.VITE_STRIPE_PUBLISHABLE_KEY
     const hasSecretKey = !!process.env.STRIPE_SECRET_KEY
-    const appMode = process.env.VITE_APP_MODE
 
     res.status(200).json({
       success: true,
       message: 'Vercel function is working',
-      environment: {
-        has_publishable_key: hasPublishableKey,
-        has_secret_key: hasSecretKey,
-        app_mode: appMode,
-        all_stripe_env_vars: Object.keys(process.env).filter(key => key.includes('STRIPE') || key.includes('VITE')),
-        publishable_key_preview: process.env.VITE_STRIPE_PUBLISHABLE_KEY?.substring(0, 10) + '...',
-        secret_key_preview: process.env.STRIPE_SECRET_KEY?.substring(0, 10) + '...'
-      }
+      has_publishable_key: hasPublishableKey,
+      has_secret_key: hasSecretKey,
+      node_version: process.version
     })
   } catch (error) {
-    console.error('Test endpoint error:', error)
     res.status(500).json({
       error: 'Function failed',
       message: error.message

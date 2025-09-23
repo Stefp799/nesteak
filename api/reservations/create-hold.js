@@ -1,18 +1,17 @@
 // Vercel Serverless Function - Create Authorization Hold
-const Stripe = require('stripe')
+import Stripe from 'stripe'
 
-// Initialize Stripe with secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2023-10-16'
-})
-
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
   try {
+    // Initialize Stripe with secret key
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2023-10-16'
+    })
     const {
       partySize,
       date,
