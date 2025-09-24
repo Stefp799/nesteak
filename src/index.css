@@ -270,6 +270,48 @@ nav .reservations-btn:hover { background-color: white; color: black; }
 .availability { display: block; font-size: 0.75rem; margin-top: 0.25rem; color: #059669; font-weight: 400; }
 .time-slot.selected .availability { color: rgba(255,255,255,0.9); }
 
+/* Scarcity messaging styles */
+.time-slot.booked {
+  border-color: #dc3545;
+  background-color: #f8d7da;
+  color: #721c24;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.time-slot.scarcity {
+  border-color: #fd7e14;
+  background-color: #fff3cd;
+  animation: pulse-scarcity 2s infinite;
+}
+
+.time-slot.scarcity:hover {
+  border-color: #fd7e14;
+  background-color: #ffeaa7;
+}
+
+.availability.booked {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.availability.scarcity {
+  color: #fd7e14;
+  font-weight: 700;
+  animation: pulse-text 1.5s infinite;
+}
+
+@keyframes pulse-scarcity {
+  0% { box-shadow: 0 0 0 0 rgba(253, 126, 20, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(253, 126, 20, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(253, 126, 20, 0); }
+}
+
+@keyframes pulse-text {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
 .reserve-button { background-color: #A69546; color: white; padding: 1rem 2rem; border: none; border-radius: 4px; font-family: 'Montserrat', sans-serif; font-size: 1.125rem; font-weight: 600; letter-spacing: 0.05em; cursor: pointer; transition: background-color 0.3s; margin-top: 1rem; }
 .reserve-button:hover { background-color: #8b7a3a; }
 

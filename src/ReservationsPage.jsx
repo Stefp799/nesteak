@@ -1,6 +1,6 @@
 // Reservations Page - New England Steak and Seafood
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { getStripe, STRIPE_CONFIG, calculateHoldAmount, formatCurrency } from './utils/stripe.js'
 import { reservationService } from './services/reservationService.js'
 import PaymentForm from './components/PaymentForm.jsx'
@@ -69,6 +69,8 @@ const ReservationForm = () => {
   const [isProcessing, setIsProcessing] = useState(false)
   const [reservationStep, setReservationStep] = useState('form') // 'form', 'payment', 'confirmation'
   const [paymentData, setPaymentData] = useState(null)
+  const [availability, setAvailability] = useState({})
+  const [isLoadingAvailability, setIsLoadingAvailability] = useState(false)
 
   const timeSlots = [
     '5:00 PM', '5:30 PM', '6:00 PM', '6:30 PM',
@@ -78,6 +80,59 @@ const ReservationForm = () => {
   const partySize = parseInt(formData.partySize)
   const isEligibleForReservation = partySize >= STRIPE_CONFIG.minimumPartySize
   const holdAmount = calculateHoldAmount(partySize)
+
+  // Generate scarcity data based on party size
+  useEffect(() => {
+    if (!formData.partySize) {
+      setAvailability({})
+      return
+    }
+
+    setIsLoadingAvailability(true)
+    setTimeout(() => {
+      const partySize = parseInt(formData.partySize)
+      const scarcityData = {}
+      const tableConfig = {
+        1: 4, 2: 4, 3: 4, 4: 4, 5: 4, 6: 4, 7: 3, 8: 3, '9+': 2
+      }
+      const totalTables = tableConfig[formData.partySize] || 4
+
+      timeSlots.forEach(time => {
+        let booked = 0
+        if (['7:00 PM', '7:30 PM', '8:00 PM'].includes(time)) {
+          booked = Math.floor(Math.random() * 2) + 2
+        } else if (['6:00 PM', '6:30 PM'].includes(time)) {
+          booked = Math.floor(Math.random() * 2) + 1
+        } else {
+          booked = Math.floor(Math.random() * 2)
+        }
+
+        if (partySize >= 7) booked = Math.floor(booked * 0.8)
+        const available = Math.max(0, totalTables - booked)
+
+        let scarcityMessage
+        if (available === 0) scarcityMessage = "Fully Booked"
+        else if (available === 1) scarcityMessage = "Only 1 left!"
+        else if (available === 2) scarcityMessage = "Only 2 available"
+        else if (available <= Math.floor(totalTables * 0.5)) scarcityMessage = `${available} tables left`
+        else scarcityMessage = "✓ Available"
+
+        scarcityData[time] = { available, total: totalTables, scarcityMessage }
+      })
+
+      setAvailability(scarcityData)
+      setIsLoadingAvailability(false)
+    }, 800)
+  }, [formData.partySize])
+
+  const getAvailabilityMessage = (time) => {
+    if (isLoadingAvailability) return "Loading..."
+    return availability[time]?.scarcityMessage || "✓ Available"
+  }
+
+  const isTimeSlotBooked = (time) => {
+    return availability[time]?.scarcityMessage === "Fully Booked"
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -267,17 +322,26 @@ const ReservationForm = () => {
             <div className="form-group">
               <label htmlFor="time">PREFERRED TIME</label>
               <div className="time-slots">
-                {timeSlots.map((time) => (
-                  <button
-                    key={time}
-                    type="button"
-                    className={`time-slot ${formData.time === time ? 'selected' : ''}`}
-                    onClick={() => setFormData({...formData, time: time})}
-                  >
-                    {time}
-                    <span className="availability">✓ Available</span>
-                  </button>
-                ))}
+                {timeSlots.map((time) => {
+                  const isBooked = isTimeSlotBooked(time)
+                  const availabilityMessage = getAvailabilityMessage(time)
+                  const isScarcity = availabilityMessage.includes('Only') || availabilityMessage.includes('left')
+
+                  return (
+                    <button
+                      key={time}
+                      type="button"
+                      className={`time-slot ${formData.time === time ? 'selected' : ''} ${isBooked ? 'booked' : ''} ${isScarcity ? 'scarcity' : ''}`}
+                      onClick={() => !isBooked && setFormData({...formData, time: time})}
+                      disabled={isBooked}
+                    >
+                      {time}
+                      <span className={`availability ${isBooked ? 'booked' : ''} ${isScarcity ? 'scarcity' : ''}`}>
+                        {availabilityMessage}
+                      </span>
+                    </button>
+                  )
+                })}
               </div>
             </div>
 
