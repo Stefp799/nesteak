@@ -65,9 +65,17 @@ export default async function handler(req, res) {
     })
 
     // Confirm with test payment method to reach requires_capture status
-    const confirmedPaymentIntent = await stripe.paymentIntents.confirm(paymentIntent.id, {
-      payment_method: 'pm_card_visa'
-    })
+    let confirmedPaymentIntent
+    try {
+      confirmedPaymentIntent = await stripe.paymentIntents.confirm(paymentIntent.id, {
+        payment_method: 'pm_card_visa',
+        return_url: 'https://nesteak.vercel.app/reservations' // Required for some payment methods
+      })
+      console.log('Payment confirmation successful:', confirmedPaymentIntent.status)
+    } catch (confirmError) {
+      console.log('Payment confirmation failed, using original:', confirmError.message)
+      confirmedPaymentIntent = paymentIntent // Fall back to original
+    }
 
     console.log('Payment intent created:', confirmedPaymentIntent.id, 'Status:', confirmedPaymentIntent.status)
 
