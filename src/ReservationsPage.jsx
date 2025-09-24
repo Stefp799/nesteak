@@ -72,6 +72,22 @@ const ReservationForm = () => {
   const [availability, setAvailability] = useState({})
   const [isLoadingAvailability, setIsLoadingAvailability] = useState(false)
 
+  const formatPhoneNumber = (value) => {
+    if (!value) return value
+    const phoneNumber = value.replace(/[^\d]/g, '')
+    const phoneNumberLength = phoneNumber.length
+    if (phoneNumberLength < 4) return phoneNumber
+    if (phoneNumberLength < 7) {
+      return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`
+    }
+    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`
+  }
+
+  const handlePhoneChange = (e) => {
+    const formattedPhoneNumber = formatPhoneNumber(e.target.value)
+    setFormData({...formData, phone: formattedPhoneNumber})
+  }
+
   const timeSlots = [
     '5:00 PM', '5:30 PM', '6:00 PM', '6:30 PM',
     '7:00 PM', '7:30 PM', '8:00 PM', '8:30 PM', '9:00 PM'
@@ -365,7 +381,8 @@ const ReservationForm = () => {
                   type="tel"
                   id="phone"
                   value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                  onChange={handlePhoneChange}
+                  maxLength=\"14\"
                   className="form-input"
                   placeholder="(508) 123-4567"
                   required

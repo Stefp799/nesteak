@@ -62,6 +62,34 @@ const WhiteSection = () => (
   </section>
 )
 
+const HoursSection = () => (
+  <section className="hours-band">
+    <div className="hours-band-content">
+      <div className="hours-center-column">
+        <h3 className="hours-title">HOURS</h3>
+        <div className="hours-list">
+          <div className="hours-item">WEDNESDAY: 11:30 AM - 9:00 PM</div>
+          <div className="hours-item">THURSDAY: 11:30 AM - 9:00 PM</div>
+          <div className="hours-item">FRIDAY: 11:30 AM - 10:00 PM</div>
+          <div className="hours-item">SATURDAY: 4:00 PM - 10:00 PM</div>
+          <div className="hours-item">SUNDAY: 12:00 PM - 9:00 PM</div>
+          <div className="hours-item">MONDAY: 4:00 PM - 9:00 PM</div>
+          <div className="hours-item closed">TUESDAY: CLOSED</div>
+        </div>
+        <div className="hours-buttons">
+          <a href="tel:508-478-0871" className="hours-btn call-btn">
+            <span className="btn-text">CALL</span>
+            <span className="btn-phone">(508) 478-0871</span>
+          </a>
+          <a href="/reservations" className="hours-btn reservation-btn">
+            RESERVATIONS
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+)
+
 const ImageDividerSection = () => {
   const images = [
     { src: '/images/primerib.jpg', alt: 'Prime Rib' },
@@ -105,6 +133,7 @@ function App() {
       <Navigation />
       <HeroSection />
       <WhiteSection />
+      <HoursSection />
       <ImageDividerSection />
       <MenuSection />
       <footer className="footer">
