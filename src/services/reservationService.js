@@ -11,7 +11,7 @@ export const reservationService = {
       // Use Express backend (localhost:3001) in development, Vercel in production
       const apiUrl = import.meta.env.DEV
         ? 'http://localhost:3001/api/reservations/create-hold'
-        : '/api/reservations/create-hold'
+        : '/api/simple-hold'
 
       const response = await fetch(apiUrl, {
         method: 'POST',
