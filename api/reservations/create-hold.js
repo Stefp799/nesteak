@@ -43,13 +43,11 @@ export default async function handler(req, res) {
 
     console.log(`Creating hold for $${totalHoldAmount} (${partySizeNum} guests)`)
 
-    // Create Payment Intent with test card and immediate confirmation
+    // Create simple Payment Intent (working version)
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalHoldAmount * 100,
       currency: 'usd',
       capture_method: 'manual',
-      payment_method: 'pm_card_visa', // Use Stripe's test payment method
-      confirm: true, // Confirm immediately
       description: `Table reservation hold - ${name} - Party of ${partySizeNum}`,
       metadata: {
         type: 'reservation_hold',
