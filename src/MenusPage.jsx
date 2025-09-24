@@ -53,6 +53,12 @@ const MenuBand = ({ activeMenu, setActiveMenu }) => (
   <section className="menu-band">
     <div className="menu-band-content">
       <div
+        className={`menu-band-item ${activeMenu === 'kids' ? 'active' : ''}`}
+        onClick={() => setActiveMenu('kids')}
+      >
+        KIDS
+      </div>
+      <div
         className={`menu-band-item ${activeMenu === 'lunch' ? 'active' : ''}`}
         onClick={() => setActiveMenu('lunch')}
       >
@@ -65,10 +71,68 @@ const MenuBand = ({ activeMenu, setActiveMenu }) => (
         DINNER
       </div>
       <div
+        className={`menu-band-item ${activeMenu === 'dessert' ? 'active' : ''}`}
+        onClick={() => setActiveMenu('dessert')}
+      >
+        DESSERT
+      </div>
+      <div
         className={`menu-band-item ${activeMenu === 'wines' ? 'active' : ''}`}
         onClick={() => setActiveMenu('wines')}
       >
         DRINKS
+      </div>
+    </div>
+  </section>
+)
+
+const KidsSection = () => (
+  <section id="kids" className="menu-section-content">
+    <div className="menu-category">
+      <h2 className="menu-category-title">KIDS MENU</h2>
+      <div className="menu-items-grid">
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">I DON'T KNOW</span>
+            <span className="menu-item-price">$12.99</span>
+          </div>
+          <div className="menu-item-description">Grilled cheese with french fries</div>
+        </div>
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">CHICKEN FINGIES</span>
+            <span className="menu-item-price">$13.99</span>
+          </div>
+          <div className="menu-item-description">Hand-breaded chicken tenders with honey mustard</div>
+        </div>
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">MAC ATTACK</span>
+            <span className="menu-item-price">$11.99</span>
+          </div>
+          <div className="menu-item-description">Classic mac and cheese, extra cheesy</div>
+        </div>
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">MINI BURGER</span>
+            <span className="menu-item-price">$14.99</span>
+          </div>
+          <div className="menu-item-description">Kid-sized burger with fries and pickle</div>
+        </div>
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">SPAGHETTI MESS</span>
+            <span className="menu-item-price">$12.99</span>
+          </div>
+          <div className="menu-item-description">Spaghetti with marinara sauce, napkins included</div>
+        </div>
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">FISH STICKS</span>
+            <span className="menu-item-price">$13.99</span>
+          </div>
+          <div className="menu-item-description">Crispy fish sticks with tartar sauce</div>
+        </div>
       </div>
     </div>
   </section>
@@ -1297,8 +1361,74 @@ const WinesSection = () => (
   </section>
 )
 
+const DessertSection = () => (
+  <section className="menu-main-section">
+    <div className="menu-category">
+      <h2 className="menu-category-title">SIGNATURE DESSERTS</h2>
+      <div className="menu-items-grid">
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">CHOCOLATE LAVA CAKE</span>
+            <span className="menu-item-price">$12.00</span>
+          </div>
+          <div className="menu-item-description">warm chocolate cake with molten center, vanilla ice cream, raspberry coulis</div>
+        </div>
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">CRÈME BRÛLÉE</span>
+            <span className="menu-item-price">$11.00</span>
+          </div>
+          <div className="menu-item-description">classic vanilla custard with caramelized sugar crust, fresh berries</div>
+        </div>
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">NEW YORK CHEESECAKE</span>
+            <span className="menu-item-price">$10.00</span>
+          </div>
+          <div className="menu-item-description">rich & creamy, graham cracker crust, choice of strawberry or chocolate sauce</div>
+        </div>
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">TIRAMISU</span>
+            <span className="menu-item-price">$11.00</span>
+          </div>
+          <div className="menu-item-description">espresso-soaked ladyfingers, mascarpone cream, cocoa dust, coffee bean garnish</div>
+        </div>
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">BREAD PUDDING</span>
+            <span className="menu-item-price">$9.00</span>
+          </div>
+          <div className="menu-item-description">warm house-made bread pudding, whiskey caramel sauce, vanilla ice cream</div>
+        </div>
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">ICE CREAM SUNDAE</span>
+            <span className="menu-item-price">$8.00</span>
+          </div>
+          <div className="menu-item-description">three scoops vanilla ice cream, hot fudge, whipped cream, cherry, choice of nuts</div>
+        </div>
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">SEASONAL FRUIT COBBLER</span>
+            <span className="menu-item-price">$10.00</span>
+          </div>
+          <div className="menu-item-description">ask your server about today's selection, served warm with vanilla ice cream</div>
+        </div>
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">CHOCOLATE MOUSSE</span>
+            <span className="menu-item-price">$9.00</span>
+          </div>
+          <div className="menu-item-description">rich Belgian chocolate mousse, whipped cream, chocolate shavings</div>
+        </div>
+      </div>
+    </div>
+  </section>
+)
+
 function MenusPage() {
-  const [activeMenu, setActiveMenu] = useState('lunch')
+  const [activeMenu, setActiveMenu] = useState('kids')
 
   return (
     <div>
@@ -1306,8 +1436,10 @@ function MenusPage() {
       <HeroSection />
       <MenuBand activeMenu={activeMenu} setActiveMenu={setActiveMenu} />
       <div>
+        {activeMenu === 'kids' && <KidsSection />}
         {activeMenu === 'lunch' && <LunchSection />}
         {activeMenu === 'dinner' && <DinnerSection />}
+        {activeMenu === 'dessert' && <DessertSection />}
         {activeMenu === 'wines' && <WinesSection />}
       </div>
       <footer className="footer">
