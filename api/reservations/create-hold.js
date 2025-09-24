@@ -1,12 +1,9 @@
 import Stripe from 'stripe'
-import nodemailer from 'nodemailer'
 
-// SMS Helper Function - Use Textbelt
+// Simple SMS function
 async function sendSMS(to, message) {
   try {
-    // Use your Textbelt API key or fallback to free demo
     const apiKey = process.env.TEXTBELT_API_KEY || 'textbelt'
-
     const response = await fetch('https://textbelt.com/text', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -16,50 +13,12 @@ async function sendSMS(to, message) {
         key: apiKey
       })
     })
-
     const result = await response.json()
-
-    if (result.success) {
-      console.log('Textbelt SMS sent successfully:', result.textId)
-      console.log('API Key used:', apiKey === 'textbelt' ? 'FREE DEMO' : 'YOUR PAID KEY')
-      return { success: true, provider: 'textbelt', textId: result.textId }
-    } else {
-      console.error('Textbelt error:', result.error)
-      console.log('Quota info:', result.quotaRemaining)
-
-      // Demo mode fallback
-      console.log('SMS Demo Mode - Would send:', { to, message })
-      return { success: true, demo: true }
-    }
+    console.log('SMS result:', result)
+    return { success: true, demo: !result.success }
   } catch (error) {
-    console.error('SMS error:', error.message)
-
-    // Demo mode fallback
-    console.log('SMS Demo Mode - Would send:', { to, message })
+    console.log('SMS error (using demo mode):', error.message)
     return { success: true, demo: true }
-  }
-}
-
-// Email Helper Function
-async function sendEmail(to, subject, html, emailTransporter) {
-  try {
-    if (!process.env.EMAIL_USER) {
-      console.log('Email Demo Mode - Would send:', { to, subject })
-      return { success: true, demo: true }
-    }
-
-    const result = await emailTransporter.sendMail({
-      from: process.env.EMAIL_FROM,
-      to: to,
-      subject: subject,
-      html: html
-    })
-
-    console.log('Email sent successfully:', result.messageId)
-    return { success: true, messageId: result.messageId }
-  } catch (error) {
-    console.error('Email error:', error)
-    return { success: false, error: error.message }
   }
 }
 
@@ -69,17 +28,10 @@ export default async function handler(req, res) {
   }
 
   try {
-    console.log('Creating reservation hold...')
+    console.log('Creating reservation hold with SMS...')
 
-    // Initialize Stripe and Email inside function
+    // Initialize Stripe
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-    const emailTransporter = nodemailer.createTransporter({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      }
-    })
 
     const {
       partySize,
@@ -96,11 +48,10 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Missing required fields' })
     }
 
-    // Validate party size meets minimum requirement
-    const minimumPartySize = 5
-    if (parseInt(partySize) < minimumPartySize) {
+    // Validate party size
+    if (parseInt(partySize) < 5) {
       return res.status(400).json({
-        error: `Reservations require minimum ${minimumPartySize} guests`
+        error: `Reservations require minimum 5 guests`
       })
     }
 
@@ -110,11 +61,11 @@ export default async function handler(req, res) {
 
     console.log(`Creating hold for $${totalHoldAmount} (${partySize} guests)`)
 
-    // Create Payment Intent for authorization hold - SIMPLE VERSION
+    // Create Payment Intent
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: totalHoldAmount * 100, // Stripe uses cents
+      amount: totalHoldAmount * 100,
       currency: 'usd',
-      capture_method: 'manual', // This creates an authorization hold
+      capture_method: 'manual',
       description: `Table reservation hold - ${name} - Party of ${partySize}`,
       metadata: {
         type: 'reservation_hold',
@@ -130,9 +81,9 @@ export default async function handler(req, res) {
       }
     })
 
-    console.log('Payment intent created:', paymentIntent.id, 'Status:', paymentIntent.status)
+    console.log('Payment intent created:', paymentIntent.id)
 
-    // Generate unique reservation ID (short format)
+    // Generate reservation ID
     const reservationId = `NE${Date.now().toString().slice(-6)}${Math.random().toString(36).substr(2, 3).toUpperCase()}`
 
     // Send confirmation SMS
@@ -145,48 +96,6 @@ ID: ${reservationId}
 
     const smsResult = await sendSMS(phone, confirmationMessage)
 
-    // Send confirmation email
-    const emailSubject = `Reservation Confirmed - ${reservationId} - New England Steak & Seafood`
-    const emailHtml = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #8B4513; text-align: center;">🍽️ New England Steak & Seafood</h2>
-
-        <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <h3 style="color: #28a745; margin-top: 0;">✅ Reservation Confirmed!</h3>
-
-          <p><strong>Reservation ID:</strong> ${reservationId}</p>
-          <p><strong>Guest Name:</strong> ${name}</p>
-          <p><strong>Party Size:</strong> ${partySize} guests</p>
-          <p><strong>Date & Time:</strong> ${date} at ${time}</p>
-          <p><strong>Authorization Hold:</strong> $${totalHoldAmount} (released upon arrival)</p>
-          ${specialRequests ? `<p><strong>Special Requests:</strong> ${specialRequests}</p>` : ''}
-        </div>
-
-        <div style="background-color: #fff3cd; padding: 15px; border-radius: 8px; margin: 20px 0;">
-          <h4 style="color: #856404; margin-top: 0;">📋 Important Information</h4>
-          <ul style="color: #856404;">
-            <li>Cancel up to 2 hours before your reservation - no charge</li>
-            <li>Your card will not be charged unless you're a no-show</li>
-            <li>Please arrive on time to have your hold released</li>
-          </ul>
-        </div>
-
-        <div style="text-align: center; margin: 30px 0;">
-          <p><strong>Questions?</strong></p>
-          <p>📞 Call us at <a href="tel:5084780871" style="color: #8B4513;">508.478.0871</a></p>
-          <p>📧 Reply to this email</p>
-        </div>
-
-        <hr style="border: 1px solid #dee2e6; margin: 30px 0;">
-        <p style="text-align: center; color: #6c757d; font-size: 14px;">
-          We look forward to serving you at New England Steak & Seafood!<br>
-          <em>See you soon!</em>
-        </p>
-      </div>
-    `
-
-    const emailResult = await sendEmail(email, emailSubject, emailHtml, emailTransporter)
-
     // Return success response
     res.status(200).json({
       success: true,
@@ -194,23 +103,15 @@ ID: ${reservationId}
       client_secret: paymentIntent.client_secret,
       payment_intent_id: paymentIntent.id,
       hold_amount: totalHoldAmount,
-      message: 'Stripe payment intent created successfully!',
+      message: 'Stripe payment intent created with SMS notification!',
       sms_sent: smsResult.success,
       sms_demo: smsResult.demo || false,
-      email_sent: emailResult.success,
-      email_demo: emailResult.demo || false
+      email_sent: false,
+      email_demo: true
     })
 
   } catch (error) {
-    console.error('Stripe authorization hold error:', error)
-
-    // Handle specific Stripe errors
-    if (error.type === 'StripeCardError') {
-      return res.status(400).json({
-        error: 'Card declined',
-        details: error.message
-      })
-    }
+    console.error('Reservation hold error:', error)
 
     return res.status(500).json({
       error: 'Failed to create reservation hold',
