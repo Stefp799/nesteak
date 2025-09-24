@@ -1,17 +1,5 @@
-// Initialize Stripe
-const Stripe = require('stripe')
-const nodemailer = require('nodemailer')
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-
-// Initialize Email Transporter (Gmail SMTP)
-const emailTransporter = nodemailer.createTransporter({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-})
+import Stripe from 'stripe'
+import nodemailer from 'nodemailer'
 
 // SMS Helper Function - Use Textbelt
 async function sendSMS(to, message) {
@@ -53,7 +41,7 @@ async function sendSMS(to, message) {
 }
 
 // Email Helper Function
-async function sendEmail(to, subject, html) {
+async function sendEmail(to, subject, html, emailTransporter) {
   try {
     if (!process.env.EMAIL_USER) {
       console.log('Email Demo Mode - Would send:', { to, subject })
@@ -75,13 +63,23 @@ async function sendEmail(to, subject, html) {
   }
 }
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
   try {
     console.log('Creating reservation hold...')
+
+    // Initialize Stripe and Email inside function
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+    const emailTransporter = nodemailer.createTransporter({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      }
+    })
 
     const {
       partySize,
@@ -187,7 +185,7 @@ ID: ${reservationId}
       </div>
     `
 
-    const emailResult = await sendEmail(email, emailSubject, emailHtml)
+    const emailResult = await sendEmail(email, emailSubject, emailHtml, emailTransporter)
 
     // Return success response
     res.status(200).json({
