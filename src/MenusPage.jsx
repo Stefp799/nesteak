@@ -89,49 +89,57 @@ const MenuBand = ({ activeMenu, setActiveMenu }) => (
 const KidsSection = () => (
   <section id="kids" className="menu-section-content">
     <div className="menu-category">
-      <h2 className="menu-category-title">KIDS MENU</h2>
+      <h2 className="menu-category-title">KIDS VALUE MEALS</h2>
+      <p style={{ textAlign: 'center', marginBottom: '2rem', fontFamily: 'Inter', fontSize: '0.875rem', color: '#666' }}>(MUST BE 12 AND UNDER)</p>
       <div className="menu-items-grid">
         <div className="menu-item">
           <div className="menu-item-header">
-            <span className="menu-item-name">I DON'T KNOW</span>
+            <span className="menu-item-name">GRILLED CHEESE WITH FRENCH FRIES</span>
             <span className="menu-item-price">$12.99</span>
           </div>
-          <div className="menu-item-description">Grilled cheese with french fries</div>
+          <div className="menu-item-description">Classic grilled cheese served with crispy french fries</div>
         </div>
         <div className="menu-item">
           <div className="menu-item-header">
-            <span className="menu-item-name">CHICKEN FINGIES</span>
-            <span className="menu-item-price">$13.99</span>
-          </div>
-          <div className="menu-item-description">Hand-breaded chicken tenders with honey mustard</div>
-        </div>
-        <div className="menu-item">
-          <div className="menu-item-header">
-            <span className="menu-item-name">MAC ATTACK</span>
-            <span className="menu-item-price">$11.99</span>
-          </div>
-          <div className="menu-item-description">Classic mac and cheese, extra cheesy</div>
-        </div>
-        <div className="menu-item">
-          <div className="menu-item-header">
-            <span className="menu-item-name">MINI BURGER</span>
+            <span className="menu-item-name">PASTA WITH MEATBALL OR BUTTER</span>
             <span className="menu-item-price">$14.99</span>
           </div>
-          <div className="menu-item-description">Kid-sized burger with fries and pickle</div>
+          <div className="menu-item-description">Choice of pasta with house-made meatball or simple butter</div>
         </div>
         <div className="menu-item">
           <div className="menu-item-header">
-            <span className="menu-item-name">SPAGHETTI MESS</span>
-            <span className="menu-item-price">$12.99</span>
+            <span className="menu-item-name">CAN WE GO HOME? GRILLED HAM STEAK</span>
+            <span className="menu-item-price">$14.99</span>
           </div>
-          <div className="menu-item-description">Spaghetti with marinara sauce, napkins included</div>
+          <div className="menu-item-description">Grilled ham steak with pineapple and brown sugar glaze</div>
         </div>
         <div className="menu-item">
           <div className="menu-item-header">
-            <span className="menu-item-name">FISH STICKS</span>
+            <span className="menu-item-name">I DON'T CARE! CHICKEN FINGERS WITH FRENCH FRIES</span>
             <span className="menu-item-price">$13.99</span>
           </div>
-          <div className="menu-item-description">Crispy fish sticks with tartar sauce</div>
+          <div className="menu-item-description">Crispy chicken fingers with sweet and sour sauce and french fries</div>
+        </div>
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">I'M NOT FINISHED MY GAME! FISH AND CHIPS</span>
+            <span className="menu-item-price">$16.99</span>
+          </div>
+          <div className="menu-item-description">Beer-battered fish with crispy chips</div>
+        </div>
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">COMPLETE SILENCE! CHICKEN PARM WITH PASTA</span>
+            <span className="menu-item-price">$16.99</span>
+          </div>
+          <div className="menu-item-description">Breaded chicken parmesan served over pasta</div>
+        </div>
+        <div className="menu-item">
+          <div className="menu-item-header">
+            <span className="menu-item-name">IF ALL ELSE FAILS! HOT DOG "PEARL" ALL BEEF</span>
+            <span className="menu-item-price">$13.99</span>
+          </div>
+          <div className="menu-item-description">Premium all-beef hot dog served with french fries</div>
         </div>
       </div>
     </div>
@@ -1184,6 +1192,34 @@ const WinesSection = () => (
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div className="menu-category">
+      <h2 className="menu-category-title">FALL SPECIALS</h2>
+      <div className="wine-items-grid">
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">PUMPKIN SPICE CAPPUCCINO MARTINI</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-value">$14</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Vodka, Kahlua, Irish Cream, & pumpkin spice topped with whipped cream</div>
+        </div>
+        <div className="menu-item">
+          <div className="wine-item-header">
+            <span className="wine-item-name">CINNAMON ROLL MARTINI</span>
+            <div className="wine-pricing">
+              <div className="wine-price-column">
+                <div className="wine-price-value">$13</div>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item-description">Vanilla Vodka, Kahlua, Bailey's & cinnamon with a cinnamon sugar rim</div>
         </div>
       </div>
     </div>
