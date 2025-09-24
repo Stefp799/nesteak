@@ -229,7 +229,8 @@ const ReservationForm = () => {
                 <p>For parties of {STRIPE_CONFIG.minimumPartySize} or more, we require a courtesy hold of <strong>{formatCurrency(STRIPE_CONFIG.holdAmountPerGuest)} per guest</strong> to secure your table.</p>
                 <ul>
                   <li>✅ Hold is <strong>released when you arrive</strong></li>
-                  <li>✅ <strong>Cancel up to 24 hours</strong> before - no charge</li>
+                  <li>✅ <strong>Cancel up to 2 hours</strong> before - no charge</li>
+                  <li>💰 <strong>$15 per person charge</strong> if you do not show</li>
                   <li>✅ Think of it as us <strong>saving your seat</strong></li>
                 </ul>
                 {isEligibleForReservation && (
@@ -284,7 +285,8 @@ const ReservationForm = () => {
                   <li>✅ Confirmation email sent to {formData.email}</li>
                   <li>📱 SMS reminder 24 hours before your reservation</li>
                   <li>🏪 Hold will be released when you arrive</li>
-                  <li>📞 Cancel up to 24 hours before - no charge</li>
+                  <li>📞 Cancel up to 2 hours before - no charge</li>
+                  <li>💰 $15 per person charge if you do not show</li>
                 </ul>
               </div>
 
@@ -403,17 +405,6 @@ const ReservationForm = () => {
               />
             </div>
 
-            <div className="form-group">
-              <label htmlFor="specialRequests">SPECIAL REQUESTS (OPTIONAL)</label>
-              <textarea
-                id="specialRequests"
-                value={formData.specialRequests}
-                onChange={(e) => setFormData({...formData, specialRequests: e.target.value})}
-                className="form-textarea"
-                placeholder="Anniversary dinner, dietary restrictions, preferred seating..."
-                rows="3"
-              />
-            </div>
 
             <div className="form-group sms-consent">
               <div className="sms-consent-box">
@@ -436,7 +427,7 @@ const ReservationForm = () => {
 
             <button type="submit" className="reserve-button" disabled={isProcessing}>
               {isProcessing ? 'Processing...' :
-               isEligibleForReservation ? `SECURE TABLE (${formatCurrency(holdAmount)} hold)` :
+               isEligibleForReservation ? `SECURE TABLE $25 per person` :
                'RESERVE YOUR TABLE'}
             </button>
 
