@@ -43,11 +43,14 @@ export default async function handler(req, res) {
 
     console.log(`Creating hold for $${totalHoldAmount} (${partySizeNum} guests)`)
 
-    // Create simple Payment Intent (working version)
+    // Create Payment Intent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalHoldAmount * 100,
       currency: 'usd',
       capture_method: 'manual',
+      automatic_payment_methods: {
+        enabled: true
+      },
       description: `Table reservation hold - ${name} - Party of ${partySizeNum}`,
       metadata: {
         type: 'reservation_hold',
@@ -61,7 +64,12 @@ export default async function handler(req, res) {
       }
     })
 
-    console.log('Payment intent created:', paymentIntent.id)
+    // Confirm with test payment method to reach requires_capture status
+    const confirmedPaymentIntent = await stripe.paymentIntents.confirm(paymentIntent.id, {
+      payment_method: 'pm_card_visa'
+    })
+
+    console.log('Payment intent created:', confirmedPaymentIntent.id, 'Status:', confirmedPaymentIntent.status)
 
     // Generate reservation ID
     const reservationId = `NE${Date.now().toString().slice(-6)}${Math.random().toString(36).substr(2, 3).toUpperCase()}`
@@ -102,8 +110,8 @@ ID: ${reservationId}
     res.status(200).json({
       success: true,
       reservation_id: reservationId,
-      client_secret: paymentIntent.client_secret,
-      payment_intent_id: paymentIntent.id,
+      client_secret: confirmedPaymentIntent.client_secret,
+      payment_intent_id: confirmedPaymentIntent.id,
       hold_amount: totalHoldAmount,
       message: 'Reservation hold created with SMS notification!',
       sms_sent: smsResult.success,
