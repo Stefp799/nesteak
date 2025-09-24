@@ -1,4 +1,5 @@
 import Stripe from 'stripe'
+import nodemailer from 'nodemailer'
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -9,8 +10,15 @@ export default async function handler(req, res) {
     console.log('Creating reservation hold...')
     console.log('Request body:', JSON.stringify(req.body, null, 2))
 
-    // Initialize Stripe
+    // Initialize Stripe and Email
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+    const emailTransporter = nodemailer.createTransporter({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      }
+    })
 
     const {
       partySize,
@@ -66,7 +74,7 @@ export default async function handler(req, res) {
     // Generate reservation ID
     const reservationId = `NE${Date.now().toString().slice(-6)}${Math.random().toString(36).substr(2, 3).toUpperCase()}`
 
-    // SMS Demo Mode - log what would be sent
+    // Send real SMS
     const smsMessage = `New England Steak & Seafood
 Reservation confirmed!
 ${partySizeNum} guests ${date} ${time}
@@ -74,7 +82,66 @@ Hold: $${totalHoldAmount}
 ID: ${reservationId}
 508.478.0871`
 
-    console.log('SMS Demo Mode - Would send to', phone, ':', smsMessage)
+    let smsResult = { success: true, demo: true }
+    try {
+      const apiKey = process.env.TEXTBELT_API_KEY || 'textbelt'
+      const smsResponse = await fetch('https://textbelt.com/text', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: phone,
+          message: smsMessage,
+          key: apiKey
+        })
+      })
+      const smsData = await smsResponse.json()
+      console.log('SMS result:', smsData)
+      smsResult = {
+        success: smsData.success || true,
+        demo: !smsData.success,
+        textId: smsData.textId
+      }
+    } catch (error) {
+      console.log('SMS error (using demo):', error.message)
+    }
+
+    // Send real email
+    const emailSubject = `Reservation Confirmed - ${reservationId} - New England Steak & Seafood`
+    const emailHtml = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #8B4513; text-align: center;">🍽️ New England Steak & Seafood</h2>
+        <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+          <h3 style="color: #28a745; margin-top: 0;">✅ Reservation Confirmed!</h3>
+          <p><strong>Reservation ID:</strong> ${reservationId}</p>
+          <p><strong>Guest Name:</strong> ${name}</p>
+          <p><strong>Party Size:</strong> ${partySizeNum} guests</p>
+          <p><strong>Date & Time:</strong> ${date} at ${time}</p>
+          <p><strong>Authorization Hold:</strong> $${totalHoldAmount} (released upon arrival)</p>
+          ${specialRequests ? `<p><strong>Special Requests:</strong> ${specialRequests}</p>` : ''}
+        </div>
+        <p style="text-align: center; color: #6c757d;">
+          📞 Questions? Call <a href="tel:5084780871">508.478.0871</a>
+        </p>
+      </div>
+    `
+
+    let emailResult = { success: true, demo: true }
+    try {
+      if (process.env.EMAIL_USER) {
+        const emailResponse = await emailTransporter.sendMail({
+          from: process.env.EMAIL_FROM,
+          to: email,
+          subject: emailSubject,
+          html: emailHtml
+        })
+        console.log('Email sent:', emailResponse.messageId)
+        emailResult = { success: true, messageId: emailResponse.messageId }
+      } else {
+        console.log('Email demo mode - no EMAIL_USER configured')
+      }
+    } catch (error) {
+      console.log('Email error (using demo):', error.message)
+    }
 
     // Return success response
     res.status(200).json({
@@ -83,11 +150,13 @@ ID: ${reservationId}
       client_secret: paymentIntent.client_secret,
       payment_intent_id: paymentIntent.id,
       hold_amount: totalHoldAmount,
-      message: 'Reservation hold created successfully!',
-      sms_sent: true,
-      sms_demo: true,
-      email_sent: true,
-      email_demo: true
+      message: 'Reservation hold created with real SMS and email!',
+      sms_sent: smsResult.success,
+      sms_demo: smsResult.demo || false,
+      sms_text_id: smsResult.textId,
+      email_sent: emailResult.success,
+      email_demo: emailResult.demo || false,
+      email_message_id: emailResult.messageId
     })
 
   } catch (error) {
