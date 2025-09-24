@@ -7,6 +7,7 @@ export default async function handler(req, res) {
 
   try {
     console.log('Creating reservation hold...')
+    console.log('Request body:', JSON.stringify(req.body, null, 2))
 
     // Initialize Stripe
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
@@ -17,16 +18,20 @@ export default async function handler(req, res) {
       time,
       name,
       phone,
-      email
+      email,
+      specialRequests
     } = req.body
 
     // Validate required fields
     if (!partySize || !date || !time || !name || !phone || !email) {
+      console.log('Missing fields validation failed:', { partySize, date, time, name, phone, email })
       return res.status(400).json({ error: 'Missing required fields' })
     }
 
-    // Validate party size
-    if (parseInt(partySize) < 5) {
+    // Convert partySize to number and validate
+    const partySizeNum = parseInt(partySize)
+    if (isNaN(partySizeNum) || partySizeNum < 5) {
+      console.log('Party size validation failed:', partySize, '→', partySizeNum)
       return res.status(400).json({
         error: `Reservations require minimum 5 guests`
       })
@@ -34,22 +39,22 @@ export default async function handler(req, res) {
 
     // Calculate hold amount
     const holdAmountPerGuest = 25
-    const totalHoldAmount = holdAmountPerGuest * parseInt(partySize)
+    const totalHoldAmount = holdAmountPerGuest * partySizeNum
 
-    console.log(`Creating hold for $${totalHoldAmount} (${partySize} guests)`)
+    console.log(`Creating hold for $${totalHoldAmount} (${partySizeNum} guests)`)
 
     // Create simple Payment Intent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalHoldAmount * 100,
       currency: 'usd',
       capture_method: 'manual',
-      description: `Table reservation hold - ${name} - Party of ${partySize}`,
+      description: `Table reservation hold - ${name} - Party of ${partySizeNum}`,
       metadata: {
         type: 'reservation_hold',
         customer_name: name,
         customer_phone: phone,
         customer_email: email,
-        party_size: partySize,
+        party_size: partySizeNum,
         reservation_date: date,
         reservation_time: time,
         restaurant: 'New England Steak and Seafood'
@@ -64,7 +69,7 @@ export default async function handler(req, res) {
     // SMS Demo Mode - log what would be sent
     const smsMessage = `New England Steak & Seafood
 Reservation confirmed!
-${partySize} guests ${date} ${time}
+${partySizeNum} guests ${date} ${time}
 Hold: $${totalHoldAmount}
 ID: ${reservationId}
 508.478.0871`
