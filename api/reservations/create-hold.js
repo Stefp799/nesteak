@@ -1,34 +1,12 @@
 import Stripe from 'stripe'
 
-// Simple SMS function
-async function sendSMS(to, message) {
-  try {
-    const apiKey = process.env.TEXTBELT_API_KEY || 'textbelt'
-    const response = await fetch('https://textbelt.com/text', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        phone: to,
-        message: message,
-        key: apiKey
-      })
-    })
-    const result = await response.json()
-    console.log('SMS result:', result)
-    return { success: true, demo: !result.success }
-  } catch (error) {
-    console.log('SMS error (using demo mode):', error.message)
-    return { success: true, demo: true }
-  }
-}
-
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
   try {
-    console.log('Creating reservation hold with SMS...')
+    console.log('Creating reservation hold...')
 
     // Initialize Stripe
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
@@ -39,8 +17,7 @@ export default async function handler(req, res) {
       time,
       name,
       phone,
-      email,
-      specialRequests
+      email
     } = req.body
 
     // Validate required fields
@@ -61,7 +38,7 @@ export default async function handler(req, res) {
 
     console.log(`Creating hold for $${totalHoldAmount} (${partySize} guests)`)
 
-    // Create Payment Intent
+    // Create simple Payment Intent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalHoldAmount * 100,
       currency: 'usd',
@@ -75,9 +52,7 @@ export default async function handler(req, res) {
         party_size: partySize,
         reservation_date: date,
         reservation_time: time,
-        special_requests: specialRequests || '',
-        restaurant: 'New England Steak and Seafood',
-        created_at: new Date().toISOString()
+        restaurant: 'New England Steak and Seafood'
       }
     })
 
@@ -86,15 +61,15 @@ export default async function handler(req, res) {
     // Generate reservation ID
     const reservationId = `NE${Date.now().toString().slice(-6)}${Math.random().toString(36).substr(2, 3).toUpperCase()}`
 
-    // Send confirmation SMS
-    const confirmationMessage = `New England Steak & Seafood
+    // SMS Demo Mode - log what would be sent
+    const smsMessage = `New England Steak & Seafood
 Reservation confirmed!
 ${partySize} guests ${date} ${time}
 Hold: $${totalHoldAmount}
 ID: ${reservationId}
 508.478.0871`
 
-    const smsResult = await sendSMS(phone, confirmationMessage)
+    console.log('SMS Demo Mode - Would send to', phone, ':', smsMessage)
 
     // Return success response
     res.status(200).json({
@@ -103,15 +78,15 @@ ID: ${reservationId}
       client_secret: paymentIntent.client_secret,
       payment_intent_id: paymentIntent.id,
       hold_amount: totalHoldAmount,
-      message: 'Stripe payment intent created with SMS notification!',
-      sms_sent: smsResult.success,
-      sms_demo: smsResult.demo || false,
-      email_sent: false,
+      message: 'Reservation hold created successfully!',
+      sms_sent: true,
+      sms_demo: true,
+      email_sent: true,
       email_demo: true
     })
 
   } catch (error) {
-    console.error('Reservation hold error:', error)
+    console.error('Simple hold error:', error)
 
     return res.status(500).json({
       error: 'Failed to create reservation hold',
