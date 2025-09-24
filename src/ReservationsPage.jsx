@@ -382,7 +382,7 @@ const ReservationForm = () => {
                   id="phone"
                   value={formData.phone}
                   onChange={handlePhoneChange}
-                  maxLength=\"14\"
+                  maxLength="14"
                   className="form-input"
                   placeholder="(508) 123-4567"
                   required
