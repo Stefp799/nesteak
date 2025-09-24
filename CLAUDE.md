@@ -31,14 +31,16 @@
 - **`/api/stripe-status.js`** - Fast transaction status checking (bypasses slow Stripe dashboard)
 - **`/api/test.js`** - Basic functionality verification
 
-### Environment Variables (Production Ready):
+### Environment Variables (5 Required):
 ```bash
-STRIPE_SECRET_KEY=sk_test_51SAXlJHWOK5vXcAi8y7t3UceDmcNHZ7R4TqwriZzU3SnO5bJ4KBOh8GB2riuGnBThnZwmJxmSzqLW9Kf8ayZR73G00Z38LJHMt
-EMAIL_USER=piardis@gmail.com
-EMAIL_PASS=yldx gdjg fxxw chmy
-TEXTBELT_API_KEY=ec0a13bc20d3555e2eb55a84a034e4cd061a0359SSk1T8I9x4w27fusuO5fSfvve
-EMAIL_FROM="New England Steak and Seafood <piardis@gmail.com>"
+STRIPE_SECRET_KEY=[Configured in Vercel Dashboard]
+EMAIL_USER=[Gmail account configured]
+EMAIL_PASS=[Gmail app password configured]
+TEXTBELT_API_KEY=[SMS service configured]
+EMAIL_FROM="New England Steak and Seafood <[email configured]>"
 ```
+
+**Note**: All environment variables are properly configured in Vercel production environment.
 
 ### Final System Status:
 - ✅ **Stripe Integration**: "requires_capture" status achieved
