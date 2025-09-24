@@ -94,52 +94,52 @@ const KidsSection = () => (
       <div className="menu-items-grid">
         <div className="menu-item">
           <div className="menu-item-header">
-            <span className="menu-item-name">GRILLED CHEESE WITH FRENCH FRIES</span>
+            <span className="menu-item-name">I DON'T KNOW</span>
             <span className="menu-item-price">$12.99</span>
           </div>
-          <div className="menu-item-description">Classic grilled cheese served with crispy french fries</div>
+          <div className="menu-item-description">Grilled cheese with french fries</div>
         </div>
         <div className="menu-item">
           <div className="menu-item-header">
-            <span className="menu-item-name">PASTA WITH MEATBALL OR BUTTER</span>
+            <span className="menu-item-name">I'M NOT HUNGRY</span>
             <span className="menu-item-price">$14.99</span>
           </div>
-          <div className="menu-item-description">Choice of pasta with house-made meatball or simple butter</div>
+          <div className="menu-item-description">Pasta with meatball or butter</div>
         </div>
         <div className="menu-item">
           <div className="menu-item-header">
-            <span className="menu-item-name">CAN WE GO HOME? GRILLED HAM STEAK</span>
+            <span className="menu-item-name">CAN WE GO HOME</span>
             <span className="menu-item-price">$14.99</span>
           </div>
-          <div className="menu-item-description">Grilled ham steak with pineapple and brown sugar glaze</div>
+          <div className="menu-item-description">Grilled ham steak with pineapple and brown sugar</div>
         </div>
         <div className="menu-item">
           <div className="menu-item-header">
-            <span className="menu-item-name">I DON'T CARE! CHICKEN FINGERS WITH FRENCH FRIES</span>
+            <span className="menu-item-name">I DON'T CARE</span>
             <span className="menu-item-price">$13.99</span>
           </div>
-          <div className="menu-item-description">Crispy chicken fingers with sweet and sour sauce and french fries</div>
+          <div className="menu-item-description">Chicken fingers with french fries and sweet and sour sauce</div>
         </div>
         <div className="menu-item">
           <div className="menu-item-header">
-            <span className="menu-item-name">I'M NOT FINISHED MY GAME! FISH AND CHIPS</span>
+            <span className="menu-item-name">I'M NOT FINISHED MY GAME</span>
             <span className="menu-item-price">$16.99</span>
           </div>
-          <div className="menu-item-description">Beer-battered fish with crispy chips</div>
+          <div className="menu-item-description">Fish and chips</div>
         </div>
         <div className="menu-item">
           <div className="menu-item-header">
-            <span className="menu-item-name">COMPLETE SILENCE! CHICKEN PARM WITH PASTA</span>
+            <span className="menu-item-name">COMPLETE SILENCE</span>
             <span className="menu-item-price">$16.99</span>
           </div>
-          <div className="menu-item-description">Breaded chicken parmesan served over pasta</div>
+          <div className="menu-item-description">Chicken parm with pasta</div>
         </div>
         <div className="menu-item">
           <div className="menu-item-header">
-            <span className="menu-item-name">IF ALL ELSE FAILS! HOT DOG "PEARL" ALL BEEF</span>
+            <span className="menu-item-name">IF ALL ELSE FAILS</span>
             <span className="menu-item-price">$13.99</span>
           </div>
-          <div className="menu-item-description">Premium all-beef hot dog served with french fries</div>
+          <div className="menu-item-description">Hot dog "Pearl" all beef with french fries</div>
         </div>
       </div>
     </div>

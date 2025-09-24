@@ -57,12 +57,12 @@ nav .reservations-btn:hover { background-color: white; color: black; }
 .hamburger-btn:hover span { background: #d4af37; }
 
 /* Hero */
-.hero-section { position: relative; height: 60vh; width: 100%; max-width: 1280px; margin: 0 auto; overflow: hidden; }
-@media (min-width: 768px) { .hero-section { height: 100vh; } }
+.hero-section { position: relative; height: calc(60vh - 150px); width: 100%; max-width: 1280px; margin: 0 auto; overflow: hidden; }
+@media (min-width: 768px) { .hero-section { height: calc(100vh - 150px); } }
 
 /* Smaller Hero for Events Page */
-.hero-section-small { position: relative; height: 40vh; width: 100%; max-width: 1280px; margin: 0 auto; overflow: hidden; }
-@media (min-width: 768px) { .hero-section-small { height: 40vh; } }
+.hero-section-small { position: relative; height: calc(40vh - 150px); width: 100%; max-width: 1280px; margin: 0 auto; overflow: hidden; }
+@media (min-width: 768px) { .hero-section-small { height: calc(40vh - 150px); } }
 .hero-bg { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background-size: cover; background-position: center; background-repeat: no-repeat; }
 .hero-overlay { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background-color: rgba(0, 0, 0, 0.4); }
 .hero-content { position: relative; z-index: 10; height: 100%; display: flex; align-items: center; justify-content: center; }
@@ -137,25 +137,24 @@ nav .reservations-btn:hover { background-color: white; color: black; }
 @media (min-width: 768px) { .menu-btn { padding: 0.75rem 2rem; font-size: 0.875rem; letter-spacing: 0.15em; } }
 .menu-btn:hover { background-color: #A69546; color: #2A4237; }
 
-/* Menu band for menus page */
-.menu-band { width: 100%; background-color: #2A4237; height: 100px; }
-.menu-band-content { max-width: 71.25rem; margin: 0 auto; padding: 0 2rem; height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+/* Menu band for menus page - Compact Design */
+.menu-band { width: 100%; background-color: #2A4237; height: 70px; }
+.menu-band-content { max-width: 50rem; margin: 0 auto; padding: 0 2rem; height: 100%; display: flex; align-items: center; justify-content: center; gap: 1.5rem; }
 @media (min-width: 768px) {
   .menu-band-content {
-    justify-content: center;
-    gap: 8rem;
+    gap: 3rem;
   }
 }
 @media (min-width: 1024px) {
   .menu-band-content {
-    gap: 12rem;
+    gap: 4rem;
   }
 }
-.menu-band-item { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 400; letter-spacing: 0.05em; color: white; cursor: pointer; transition: color 0.3s; flex-shrink: 0; }
+.menu-band-item { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 400; letter-spacing: 0.05em; color: white; cursor: pointer; transition: color 0.3s; flex-shrink: 0; }
 @media (min-width: 768px) {
   .menu-band-item {
-    font-size: 2rem;
-    letter-spacing: 0.1em;
+    font-size: 1.25rem;
+    letter-spacing: 0.08em;
   }
 }
 .menu-band-item:hover { color: #A69546; }
