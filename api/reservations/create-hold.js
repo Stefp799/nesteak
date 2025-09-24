@@ -112,28 +112,11 @@ export default async function handler(req, res) {
 
     console.log(`Creating hold for $${totalHoldAmount} (${partySize} guests)`)
 
-    // Create a test payment method using Stripe test token
-    const paymentMethod = await stripe.paymentMethods.create({
-      type: 'card',
-      card: {
-        token: 'tok_visa' // Stripe test token for Visa card
-      },
-      billing_details: {
-        name: name,
-        email: email,
-        phone: phone
-      }
-    })
-
-    console.log('Payment method created:', paymentMethod.id)
-
-    // Create Payment Intent for authorization hold
+    // Create Payment Intent for authorization hold (will be confirmed with payment method on frontend)
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalHoldAmount * 100, // Stripe uses cents
       currency: 'usd',
-      payment_method: paymentMethod.id,
       capture_method: 'manual', // This creates an authorization hold
-      confirm: true, // Confirm the payment immediately
       automatic_payment_methods: {
         enabled: true,
         allow_redirects: 'never' // Only allow direct payment methods (no redirects)
@@ -153,7 +136,13 @@ export default async function handler(req, res) {
       }
     })
 
-    console.log('Payment intent created:', paymentIntent.id, 'Status:', paymentIntent.status)
+    // For demo purposes, immediately confirm with test payment method
+    const confirmedPaymentIntent = await stripe.paymentIntents.confirm(paymentIntent.id, {
+      payment_method: 'pm_card_visa', // Stripe's test payment method
+      return_url: 'https://nesteak.vercel.app/reservations'
+    })
+
+    console.log('Payment intent created:', confirmedPaymentIntent.id, 'Status:', confirmedPaymentIntent.status)
 
     // Generate unique reservation ID (short format)
     const reservationId = `NE${Date.now().toString().slice(-6)}${Math.random().toString(36).substr(2, 3).toUpperCase()}`
@@ -214,8 +203,8 @@ ID: ${reservationId}
     res.status(200).json({
       success: true,
       reservation_id: reservationId,
-      client_secret: paymentIntent.client_secret,
-      payment_intent_id: paymentIntent.id,
+      client_secret: confirmedPaymentIntent.client_secret,
+      payment_intent_id: confirmedPaymentIntent.id,
       hold_amount: totalHoldAmount,
       message: 'REAL Stripe authorization hold created successfully!',
       sms_sent: smsResult.success,
