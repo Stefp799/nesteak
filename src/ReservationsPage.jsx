@@ -92,10 +92,12 @@ const ReservationForm = () => {
   }
 
   const handlePaymentSuccess = async (paymentMethod) => {
+    console.log('handlePaymentSuccess called with:', paymentMethod)
     setIsProcessing(true)
 
     try {
       // Create authorization hold via API
+      console.log('Calling API with formData:', formData)
       const holdResult = await reservationService.createReservationHold(formData)
 
       // Confirm payment with Stripe

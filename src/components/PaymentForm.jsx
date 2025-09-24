@@ -11,6 +11,7 @@ const PaymentForm = ({ onPaymentSuccess, onPaymentError, holdAmount, isProcessin
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log('Payment form submitted!')
     setIsProcessing(true)
 
     try {
