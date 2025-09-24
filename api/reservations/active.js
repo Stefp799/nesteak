@@ -15,10 +15,10 @@ export default async function handler(req, res) {
       expand: ['data.payment_method']
     })
 
-    // Filter for active reservation holds
+    // Filter for active reservation holds (includes incomplete for debugging)
     const activeReservations = paymentIntents.data
       .filter(pi =>
-        pi.status === 'requires_capture' &&
+        (pi.status === 'requires_capture' || pi.status === 'requires_payment_method') &&
         pi.metadata.type === 'reservation_hold'
       )
       .map(pi => ({
